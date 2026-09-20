@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String       @id @default(cuid())
+  username    String       @unique
+  email       String       @unique
+  password    String
+  fullName    String
+  title       String       @default("Full Stack Developer")
+  bio         String       @default("")
+  avatarUrl   String       @default("")
+  location    String       @default("")
+  status      String       @default("Available for hire")
+  themeColor  String       @default("indigo") // indigo, cyan, emerald, violet, amber, rose
+  socialLinks String       @default("{}") // JSON string: { github, linkedin, twitter, website, email }
+  projects    Project[]
+  experiences Experience[]
+  skills      Skill[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Project {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title           String
+  description     String
+  longDescription String?
+  imageUrl        String   @default("")
+  demoUrl         String   @default("")
+  repoUrl         String   @default("")
+  tags            String   @default("[]") // JSON array of tech string tags
+  order           Int      @default(0)
+  featured        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Experience {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company     String
+  role        String
+  location    String   @default("")
+  startDate   String
+  endDate     String   @default("Present")
+  current     Boolean  @default(false)
+  description String   @default("")
+  skillsUsed  String   @default("[]") // JSON array of skills
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model Skill {
+  id       String @id @default(cuid())
+  userId   String
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name     String
+  category String @default("Frontend") // Frontend, Backend, Database, DevOps, Tools
+  level    String @default("Advanced") // Beginner, Intermediate, Advanced, Expert
+  order    Int    @default(0)
+}
