@@ -17,7 +17,7 @@ The application features:
 1. **Dynamic Username Routing**: Every creator receives a customized, public URL at `/portfolio/:username` (e.g., `/portfolio/johndoe`).
 2. **Creator Studio Dashboard**: A protected administration panel (`/dashboard`) allowing creators to manage their profile, perform full CRUD operations on projects, reorder portfolio cards, manage employment history, and categorize technical skills.
 3. **Dynamic Accent Theme Engine**: Real-time theme customization supporting 6 vibrant presets (*Neon Cyan*, *Electric Violet*, *Aurora Emerald*, *Sunset Amber*, *Rose Quartz*, and *Cyber Indigo*) that adapt across hero banners, glow effects, tags, and interactive buttons.
-4. **Structured RESTful API**: Production-grade endpoints (`/api/portfolio/...`, `/api/auth/...`) with input validation, JWT cookie authentication, and robust security headers.
+4. **Structured RESTful API**: REST endpoints (`/api/portfolio/...`, `/api/auth/...`) with request validation, JWT cookie authentication, ownership checks, and protected creator routes.
 5. **Zero-Config Database Persistence**: Self-contained SQLite relational database powered by Prisma ORM, pre-seeded with sample creator portfolios.
 
 ---
@@ -375,8 +375,9 @@ The database comes pre-seeded with two accounts for instant testing:
 2. Link the repository to [Vercel](https://vercel.com).
 3. Set Environment Variables:
    - `JWT_SECRET`: `your_random_production_secret_key`
-   - `DATABASE_URL`: `file:./dev.db` (or link to a cloud PostgreSQL/Supabase database by updating `provider = "postgresql"` in `prisma/schema.prisma`).
-4. Vercel automatically runs `npm run build` and deploys.
+  - `DATABASE_URL`: a managed PostgreSQL connection string. Do not use the local SQLite file for production on Vercel because serverless filesystem storage is not durable.
+4. Change the Prisma datasource provider to `postgresql`, run `npx prisma migrate deploy` during deployment, and regenerate the Prisma client.
+5. Vercel automatically runs `npm run build` and deploys.
 
 ### Option 2: Docker Containerization
 A standard `Dockerfile` for self-hosting on VPS, Render, or Railway:
@@ -401,6 +402,8 @@ COPY --from=builder /app/prisma ./prisma
 EXPOSE 3000
 CMD ["npm", "run", "start"]
 ```
+
+For production, provide a persistent PostgreSQL `DATABASE_URL` and run `npx prisma migrate deploy` before starting the container. The included SQLite database is intended for local development and demonstrations.
 
 ---
 
@@ -428,6 +431,11 @@ CMD ["npm", "run", "start"]
 - [x] Input validation & unauthorized update prevention implemented.
 - [x] Comprehensive technical documentation completed in `README.md`.
 - [x] Local setup instructions & sample credentials provided.
+- [ ] Production application URL added after deployment.
+- [ ] Public GitHub repository URL added after publishing the source.
+- [ ] 3–5 minute demonstration video recorded and linked.
+- [ ] LinkedIn post published with the required EncoderX hashtags.
+- [ ] Final PDF submitted with the GitHub, application, LinkedIn, and video links.
 
 ---
 
