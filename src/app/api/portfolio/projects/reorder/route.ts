@@ -12,8 +12,28 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
     const { items } = body; // [{ id: string, order: number }]
 
-    if (!Array.isArray(items)) {
+    if (
+      !Array.isArray(items) ||
+      items.length > 100 ||
+      items.some(
+        (item) =>
+          !item ||
+          typeof item.id !== "string" ||
+          !Number.isInteger(item.order) ||
+          item.order < 1
+      )
+    ) {
       return NextResponse.json({ error: "Invalid payload: items must be an array" }, { status: 400 });
+    }
+
+    const ownedProjects = await prisma.project.findMany({
+      where: { userId: session.id, id: { in: items.map((item) => item.id) } },
+      select: { id: true },
+    });
+    const ownedIds = new Set(ownedProjects.map((project) => project.id));
+
+    if (ownedIds.size !== items.length || items.some((item) => !ownedIds.has(item.id))) {
+      return NextResponse.json({ error: "One or more projects are not owned by the current user." }, { status: 403 });
     }
 
     // Update orders in a transaction

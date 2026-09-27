@@ -11,8 +11,12 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { imageBase64, filename } = body;
 
-    if (!imageBase64) {
+    if (typeof imageBase64 !== "string" || !imageBase64.startsWith("data:image/")) {
       return NextResponse.json({ error: "No image payload provided" }, { status: 400 });
+    }
+
+    if (imageBase64.length > 5 * 1024 * 1024) {
+      return NextResponse.json({ error: "Image payload must be smaller than 5 MB." }, { status: 413 });
     }
 
     // Since SQLite stores strings cleanly, or direct data URLs:

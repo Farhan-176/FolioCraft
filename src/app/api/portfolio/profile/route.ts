@@ -21,6 +21,13 @@ export async function PUT(req: NextRequest) {
       socialLinks,
     } = body;
 
+    if (
+      themeColor !== undefined &&
+      !["cobalt", "cyan", "emerald", "teal", "indigo", "violet", "amber", "slate", "rose"].includes(themeColor)
+    ) {
+      return NextResponse.json({ error: "Invalid theme color." }, { status: 400 });
+    }
+
     const updated = await prisma.user.update({
       where: { id: session.id },
       data: {
