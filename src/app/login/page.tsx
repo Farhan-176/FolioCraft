@@ -152,9 +152,9 @@ export default function LoginPage() {
                   onClick={() => fillDemo("sarahdev", "password123")}
                   className="p-2.5 rounded-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-800/80 text-left transition group"
                 >
-                  <div className="text-xs font-medium text-white group-hover:text-emerald-400 flex items-center justify-between">
+                  <div className="text-xs font-medium text-white group-hover:text-purple-400 flex items-center justify-between">
                     <span>Sarah Connor</span>
-                    <CheckCircle2 className="w-3 h-3 text-emerald-400 opacity-0 group-hover:opacity-100 transition" />
+                    <CheckCircle2 className="w-3 h-3 text-purple-400 opacity-0 group-hover:opacity-100 transition" />
                   </div>
                   <div className="text-[10px] text-slate-500 font-mono">sarahdev / password123</div>
                 </button>
