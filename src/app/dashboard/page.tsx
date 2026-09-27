@@ -26,6 +26,7 @@ import {
   Eye,
   AlertCircle,
   Copy,
+  X,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -67,7 +68,6 @@ interface Skill {
 interface UserProfile {
   id: string;
   username: string;
-  email: string;
   fullName: string;
   title: string;
   bio: string;
@@ -533,10 +533,10 @@ export default function DashboardPage() {
       {/* Notifications Toast */}
       {message && (
         <div
-          className={`fixed bottom-6 right-6 z-50 p-4 rounded-xl shadow-2xl flex items-center gap-2.5 text-sm font-medium transition-all ${
+          className={`fixed bottom-6 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 p-3.5 sm:p-4 rounded-xl shadow-2xl flex items-center gap-2.5 text-xs sm:text-sm font-medium transition-all ${
             message.type === "success"
-              ? "bg-emerald-950/90 border border-emerald-500/40 text-emerald-200"
-              : "bg-red-950/90 border border-red-500/40 text-red-200"
+              ? "bg-emerald-950/95 border border-emerald-500/40 text-emerald-200"
+              : "bg-red-950/95 border border-red-500/40 text-red-200"
           }`}
         >
           {message.type === "success" ? (
@@ -760,7 +760,7 @@ export default function DashboardPage() {
                 {projects.map((proj, idx) => (
                   <div key={proj.id} className="glass-card rounded-2xl p-5 border border-slate-800 flex flex-col justify-between">
                     <div>
-                      {proj.imageUrl && (
+                      {proj.imageUrl ? (
                         <div className="h-40 rounded-xl overflow-hidden mb-4 relative group">
                           <img
                             src={proj.imageUrl}
@@ -768,12 +768,18 @@ export default function DashboardPage() {
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                           {proj.featured && (
-                            <span className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-amber-500/90 text-slate-950 font-bold text-[10px] uppercase">
+                            <span className="absolute top-2 right-2 px-2 py-0.5 rounded-md bg-amber-500/90 text-slate-950 font-bold text-[10px] uppercase shadow-sm">
                               Featured
                             </span>
                           )}
                         </div>
-                      )}
+                      ) : proj.featured ? (
+                        <div className="mb-3">
+                          <span className="inline-block px-2 py-0.5 rounded-md bg-amber-500/15 text-amber-300 border border-amber-500/30 font-bold text-[10px] uppercase">
+                            Featured
+                          </span>
+                        </div>
+                      ) : null}
 
                       <div className="flex items-start justify-between gap-2">
                         <h3 className="text-base font-bold text-white">{proj.title}</h3>
@@ -1036,33 +1042,36 @@ export default function DashboardPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-8">
                 {[
                   { id: "cobalt", name: "Tech Cobalt", from: "from-blue-600", to: "to-indigo-600", desc: "Engineering Blue" },
+                  { id: "cyan", name: "Neon Cyan", from: "from-cyan-500", to: "to-blue-600", desc: "Vibrant Cyan" },
                   { id: "emerald", name: "Precision Emerald", from: "from-emerald-600", to: "to-teal-700", desc: "Systems & Fintech" },
                   { id: "teal", name: "Nordic Teal", from: "from-teal-600", to: "to-cyan-700", desc: "Nordic Modern" },
                   { id: "indigo", name: "Executive Indigo", from: "from-indigo-600", to: "to-blue-700", desc: "Enterprise Cloud" },
+                  { id: "violet", name: "Electric Violet", from: "from-purple-600", to: "to-pink-600", desc: "Creative Purple" },
                   { id: "amber", name: "Warm Bronze", from: "from-amber-600", to: "to-yellow-700", desc: "Product Architecture" },
+                  { id: "rose", name: "Rose Quartz", from: "from-rose-500", to: "to-pink-600", desc: "Elegant Crimson" },
                   { id: "slate", name: "Minimalist Slate", from: "from-slate-600", to: "to-slate-800", desc: "Monochrome Titanium" },
                 ].map((palette) => {
-                  const isSelected = profile.themeColor === palette.id || (profile.themeColor === "cyan" && palette.id === "cobalt") || (profile.themeColor === "violet" && palette.id === "indigo");
+                  const isSelected = profile.themeColor === palette.id;
                   return (
                     <button
                       key={palette.id}
                       type="button"
                       onClick={() => setProfile({ ...profile, themeColor: palette.id })}
-                      className={`p-4 rounded-xl border text-left transition relative overflow-hidden group ${
+                      className={`p-3.5 rounded-xl border text-left transition relative overflow-hidden group ${
                         isSelected
                           ? "border-blue-500 bg-slate-800/90 shadow-md"
                           : "border-slate-800 bg-slate-900/50 hover:border-slate-700"
                       }`}
                     >
-                      <div className="flex items-center justify-between mb-3">
-                        <div className={`w-7 h-7 rounded-lg bg-gradient-to-tr ${palette.from} ${palette.to} shadow-sm`} />
-                        {isSelected && <CheckCircle2 className="w-4 h-4 text-blue-400" />}
+                      <div className="flex items-center justify-between mb-2.5">
+                        <div className={`w-6 h-6 rounded-lg bg-gradient-to-tr ${palette.from} ${palette.to} shadow-sm`} />
+                        {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-blue-400" />}
                       </div>
-                      <div className="text-xs font-semibold text-white">{palette.name}</div>
-                      <div className="text-[10px] text-slate-500">{palette.desc}</div>
+                      <div className="text-xs font-semibold text-white truncate">{palette.name}</div>
+                      <div className="text-[10px] text-slate-500 truncate">{palette.desc}</div>
                     </button>
                   );
                 })}
@@ -1089,11 +1098,26 @@ export default function DashboardPage() {
 
       {/* PROJECT MODAL */}
       {isProjectModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsProjectModalOpen(false);
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
+        >
           <div className="glass-panel w-full max-w-lg rounded-2xl p-6 border border-slate-800 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <h3 className="text-lg font-bold text-white mb-4">
-              {editingProject ? "Edit Project" : "Add New Project"}
-            </h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-white">
+                {editingProject ? "Edit Project" : "Add New Project"}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setIsProjectModalOpen(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                aria-label="Close modal"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
             <form onSubmit={handleSaveProject} className="space-y-4">
               <div>
@@ -1203,11 +1227,26 @@ export default function DashboardPage() {
 
       {/* EXPERIENCE MODAL */}
       {isExpModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsExpModalOpen(false);
+          }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
+        >
           <div className="glass-panel w-full max-w-lg rounded-2xl p-6 border border-slate-800 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <h3 className="text-lg font-bold text-white mb-4">
-              {editingExp ? "Edit Experience" : "Add Work Experience"}
-            </h3>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-white">
+                {editingExp ? "Edit Experience" : "Add Work Experience"}
+              </h3>
+              <button
+                type="button"
+                onClick={() => setIsExpModalOpen(false)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                aria-label="Close modal"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
             <form onSubmit={handleSaveExp} className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
