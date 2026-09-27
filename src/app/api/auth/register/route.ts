@@ -7,9 +7,25 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { username, email, password, fullName } = body;
 
-    if (!username || !email || !password || !fullName) {
+    if (
+      typeof username !== "string" ||
+      typeof email !== "string" ||
+      typeof password !== "string" ||
+      typeof fullName !== "string" ||
+      !username.trim() ||
+      !email.trim() ||
+      !password ||
+      !fullName.trim()
+    ) {
       return NextResponse.json(
         { error: "Username, email, password, and full name are required." },
+        { status: 400 }
+      );
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email.trim()) || password.length < 8) {
+      return NextResponse.json(
+        { error: "Enter a valid email address and a password of at least 8 characters." },
         { status: 400 }
       );
     }

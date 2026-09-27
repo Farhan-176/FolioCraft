@@ -3,7 +3,11 @@ import jwt from "jsonwebtoken";
 import { NextRequest } from "next/server";
 import { prisma } from "./prisma";
 
-const JWT_SECRET = process.env.JWT_SECRET || "encoderx_secret_jwt_key_2026_super_secure";
+const JWT_SECRET = process.env.JWT_SECRET ?? "";
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET must be configured before starting the application.");
+}
 
 export interface TokenPayload {
   userId: string;
