@@ -103,12 +103,12 @@ const themeColorMap: Record<string, {
     solidAccent: "bg-blue-500",
   },
   cyan: {
-    accent: "text-blue-400",
-    bgGlow: "rgba(59, 130, 246, 0.08)",
-    borderGlow: "border-blue-500/25",
-    badgeBg: "bg-blue-500/10 text-blue-300 border-blue-500/20",
-    buttonBg: "bg-blue-600 hover:bg-blue-500",
-    solidAccent: "bg-blue-500",
+    accent: "text-cyan-400",
+    bgGlow: "rgba(6, 182, 212, 0.08)",
+    borderGlow: "border-cyan-500/25",
+    badgeBg: "bg-cyan-500/10 text-cyan-300 border-cyan-500/20",
+    buttonBg: "bg-cyan-600 hover:bg-cyan-500",
+    solidAccent: "bg-cyan-500",
   },
   // 2. Precision Emerald (Fintech & Systems)
   emerald: {
@@ -138,12 +138,12 @@ const themeColorMap: Record<string, {
     solidAccent: "bg-indigo-500",
   },
   violet: {
-    accent: "text-indigo-400",
-    bgGlow: "rgba(99, 102, 241, 0.08)",
-    borderGlow: "border-indigo-500/25",
-    badgeBg: "bg-indigo-500/10 text-indigo-300 border-indigo-500/20",
-    buttonBg: "bg-indigo-600 hover:bg-indigo-500",
-    solidAccent: "bg-indigo-500",
+    accent: "text-purple-400",
+    bgGlow: "rgba(168, 85, 247, 0.08)",
+    borderGlow: "border-purple-500/25",
+    badgeBg: "bg-purple-500/10 text-purple-300 border-purple-500/20",
+    buttonBg: "bg-purple-600 hover:bg-purple-500",
+    solidAccent: "bg-purple-500",
   },
   // 5. Warm Bronze / Amber
   amber: {
@@ -164,12 +164,12 @@ const themeColorMap: Record<string, {
     solidAccent: "bg-slate-400",
   },
   rose: {
-    accent: "text-slate-200",
-    bgGlow: "rgba(148, 163, 184, 0.08)",
-    borderGlow: "border-slate-500/25",
-    badgeBg: "bg-slate-700/30 text-slate-200 border-slate-600/30",
-    buttonBg: "bg-slate-700 hover:bg-slate-600",
-    solidAccent: "bg-slate-400",
+    accent: "text-rose-400",
+    bgGlow: "rgba(244, 63, 94, 0.08)",
+    borderGlow: "border-rose-500/25",
+    badgeBg: "bg-rose-500/10 text-rose-300 border-rose-500/20",
+    buttonBg: "bg-rose-600 hover:bg-rose-500",
+    solidAccent: "bg-rose-500",
   },
 };
 
@@ -312,7 +312,7 @@ export default function PublicPortfolioPage({
       {/* MAIN CONTAINER */}
       <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-12 pb-24 space-y-16 relative z-10">
         {/* HERO / ABOUT SECTION */}
-        <section id="about" className="pt-6">
+        <section id="about" className="pt-6 scroll-mt-24">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-8">
             {/* Avatar */}
             <div className="relative shrink-0">
@@ -323,9 +323,9 @@ export default function PublicPortfolioPage({
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-[10px] text-emerald-400 font-medium flex items-center gap-1.5 shadow-md">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>{user.status || "Available"}</span>
+              <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 max-w-[200px] sm:max-w-xs px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-700 text-[10px] text-emerald-400 font-medium flex items-center gap-1.5 shadow-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                <span className="truncate">{user.status || "Available"}</span>
               </div>
             </div>
 
@@ -417,7 +417,7 @@ export default function PublicPortfolioPage({
         </section>
 
         {/* PROJECTS SECTION */}
-        <section id="projects" className="space-y-6">
+        <section id="projects" className="space-y-6 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-slate-800/80 pb-3">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1.5">
@@ -478,7 +478,7 @@ export default function PublicPortfolioPage({
                 >
                   <div>
                     {/* Project Image */}
-                    {proj.imageUrl && (
+                    {proj.imageUrl ? (
                       <div className="h-44 w-full overflow-hidden relative bg-slate-900">
                         <img
                           src={proj.imageUrl}
@@ -486,15 +486,21 @@ export default function PublicPortfolioPage({
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         {proj.featured && (
-                          <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-slate-900/90 border border-slate-700 text-slate-200 font-medium text-[10px] uppercase tracking-wider">
+                          <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded bg-slate-900/90 border border-slate-700 text-slate-200 font-medium text-[10px] uppercase tracking-wider shadow-sm">
                             Featured
                           </span>
                         )}
                       </div>
-                    )}
+                    ) : proj.featured ? (
+                      <div className="pt-4 px-5">
+                        <span className="inline-block px-2 py-0.5 rounded bg-slate-900/90 border border-slate-700 text-slate-200 font-medium text-[10px] uppercase tracking-wider shadow-sm">
+                          Featured
+                        </span>
+                      </div>
+                    ) : null}
 
                     <div className="p-5 space-y-2.5">
-                      <h3 className="text-base font-semibold text-white group-hover:text-blue-300 transition">
+                      <h3 className={`text-base font-semibold text-white group-hover:${theme.accent} transition`}>
                         {proj.title}
                       </h3>
                       <p className="text-xs text-slate-300 leading-relaxed">
@@ -502,46 +508,50 @@ export default function PublicPortfolioPage({
                       </p>
 
                       {/* Tag badges */}
-                      <div className="flex flex-wrap gap-1.5 pt-1.5">
-                        {proj.tags.map((tag, tIdx) => (
-                          <span
-                            key={tIdx}
-                            className={`text-[10px] font-medium px-2 py-0.5 rounded border ${theme.badgeBg}`}
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                      {proj.tags && proj.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-1.5">
+                          {proj.tags.map((tag, tIdx) => (
+                            <span
+                              key={tIdx}
+                              className={`text-[10px] font-medium px-2 py-0.5 rounded border ${theme.badgeBg}`}
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
 
                   {/* Links */}
-                  <div className="px-5 py-3 border-t border-slate-800/70 bg-slate-900/40 flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
-                      {proj.demoUrl && (
-                        <a
-                          href={proj.demoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs font-medium text-slate-200 hover:text-blue-400 transition"
-                        >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                          <span>Demo</span>
-                        </a>
-                      )}
-                      {proj.repoUrl && (
-                        <a
-                          href={proj.repoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white transition"
-                        >
-                          <Github className="w-3.5 h-3.5" />
-                          <span>Code</span>
-                        </a>
-                      )}
+                  {(proj.demoUrl || proj.repoUrl) && (
+                    <div className="px-5 py-3 border-t border-slate-800/70 bg-slate-900/40 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        {proj.demoUrl && (
+                          <a
+                            href={proj.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`inline-flex items-center gap-1 text-xs font-medium text-slate-200 hover:${theme.accent} transition`}
+                          >
+                            <ExternalLink className="w-3.5 h-3.5" />
+                            <span>Demo</span>
+                          </a>
+                        )}
+                        {proj.repoUrl && (
+                          <a
+                            href={proj.repoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white transition"
+                          >
+                            <Github className="w-3.5 h-3.5" />
+                            <span>Code</span>
+                          </a>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               ))}
             </div>
@@ -550,7 +560,7 @@ export default function PublicPortfolioPage({
 
         {/* WORK EXPERIENCE SECTION */}
         {experiences.length > 0 && (
-          <section id="experience" className="space-y-6">
+          <section id="experience" className="space-y-6 scroll-mt-24">
             <div className="border-b border-slate-800/80 pb-3">
               <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1.5">
                 <Briefcase className={`w-3.5 h-3.5 ${theme.accent}`} />
@@ -563,13 +573,13 @@ export default function PublicPortfolioPage({
               {experiences.map((exp) => (
                 <div key={exp.id} className="relative group">
                   {/* Timeline bullet */}
-                  <div className="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full border-2 border-slate-900 bg-slate-600 group-hover:bg-blue-400 transition-colors" />
+                  <div className={`absolute -left-[21px] top-1.5 w-3 h-3 rounded-full border-2 border-slate-900 bg-slate-600 group-hover:${theme.solidAccent} transition-colors`} />
 
                   <div className="glass-card rounded-xl p-5 border border-slate-800/80 space-y-2.5">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                       <div>
                         <h3 className="text-sm sm:text-base font-semibold text-white">{exp.role}</h3>
-                        <div className="text-xs text-blue-400 font-medium">
+                        <div className={`text-xs font-medium ${theme.accent}`}>
                           {exp.company} {exp.location && `• ${exp.location}`}
                         </div>
                       </div>
@@ -604,7 +614,7 @@ export default function PublicPortfolioPage({
 
         {/* SKILLS SECTION */}
         {skills.length > 0 && (
-          <section id="skills" className="space-y-6">
+          <section id="skills" className="space-y-6 scroll-mt-24">
             <div className="border-b border-slate-800/80 pb-3">
               <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1 flex items-center gap-1.5">
                 <Terminal className={`w-3.5 h-3.5 ${theme.accent}`} />
@@ -643,7 +653,7 @@ export default function PublicPortfolioPage({
         )}
 
         {/* CONTACT SECTION */}
-        <section id="contact" className="pt-4">
+        <section id="contact" className="pt-4 scroll-mt-24">
           <div className="glass-panel rounded-2xl p-8 sm:p-10 border border-slate-800 text-center relative">
             <div className="max-w-md mx-auto space-y-3">
               <span className={`text-xs font-semibold uppercase tracking-wider ${theme.accent}`}>
