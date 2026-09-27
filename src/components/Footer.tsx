@@ -42,7 +42,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/portfolio/sarahdev" className="hover:text-emerald-400 transition-colors">
+                <Link href="/portfolio/sarahdev" className="hover:text-purple-400 transition-colors">
                   /portfolio/sarahdev (UI/UX)
                 </Link>
               </li>

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { LayoutDashboard, User, LogOut, ArrowRight, Layers, Shield } from "lucide-react";
+import { LayoutDashboard, User, LogOut, ArrowRight, Layers, Shield, Menu, X } from "lucide-react";
 
 interface SessionUser {
   id: string;
@@ -15,6 +15,7 @@ interface SessionUser {
 export default function Navbar() {
   const [user, setUser] = useState<SessionUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -81,11 +82,11 @@ export default function Navbar() {
         </nav>
 
         {/* Right Action Buttons */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {loading ? (
             <div className="w-24 h-8 bg-slate-800/50 rounded-lg animate-pulse" />
           ) : user ? (
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2">
               <Link
                 href={`/portfolio/${user.username}`}
                 target="_blank"
@@ -110,7 +111,7 @@ export default function Navbar() {
               </button>
             </div>
           ) : (
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2">
               <Link
                 href="/login"
                 className="text-xs font-medium text-slate-300 hover:text-white px-3 py-1.5 rounded-lg hover:bg-slate-800/60 transition"
@@ -119,15 +120,58 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/register"
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-white px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 transition shadow-sm"
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-white px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 transition shadow-sm"
               >
                 <span>Get Started</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           )}
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800/80 transition"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          </button>
         </div>
       </div>
+
+      {/* Responsive Mobile Drawer */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-slate-800 bg-[#090c15]/95 backdrop-blur-lg px-4 py-3 space-y-1.5 text-xs font-medium text-slate-300">
+          <Link
+            href="/#features"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition"
+          >
+            Architecture
+          </Link>
+          <Link
+            href="/#directory"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition"
+          >
+            Portfolios
+          </Link>
+          <Link
+            href="/portfolio/johndoe"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-lg hover:bg-slate-800/60 text-blue-400 hover:text-blue-300 transition"
+          >
+            Live Showcase (@johndoe)
+          </Link>
+          <Link
+            href="/#api-docs"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition"
+          >
+            API Specs
+          </Link>
+        </div>
+      )}
     </header>
   );
 }
