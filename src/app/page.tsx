@@ -105,7 +105,7 @@ export default function HomePage() {
       </section>
 
       {/* DIRECTORY: LIVE SEEDED CREATORS */}
-      <section id="directory" className="py-16 border-t border-slate-800/80 bg-[#070910]">
+      <section id="directory" className="py-16 border-t border-slate-800/80 bg-[#070910] scroll-mt-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
             <div>
@@ -132,11 +132,11 @@ export default function HomePage() {
                 />
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-base font-semibold text-white group-hover:text-blue-400 transition">
+                    <h3 className="text-base font-semibold text-white group-hover:text-cyan-400 transition">
                       Johnathan Doe
                     </h3>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-300 border border-blue-500/20 font-medium">
-                      Tech Cobalt
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 font-medium">
+                      Neon Cyan
                     </span>
                   </div>
                   <p className="text-xs text-slate-400 font-mono mt-0.5">/portfolio/johndoe</p>
@@ -156,7 +156,7 @@ export default function HomePage() {
                 </div>
                 <Link
                   href="/portfolio/johndoe"
-                  className="inline-flex items-center gap-1 text-xs font-medium text-blue-400 hover:text-blue-300"
+                  className="inline-flex items-center gap-1 text-xs font-medium text-cyan-400 hover:text-cyan-300"
                 >
                   <span>View Profile</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -174,11 +174,11 @@ export default function HomePage() {
                 />
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-base font-semibold text-white group-hover:text-emerald-400 transition">
+                    <h3 className="text-base font-semibold text-white group-hover:text-purple-400 transition">
                       Sarah Connor
                     </h3>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 font-medium">
-                      Precision Emerald
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20 font-medium">
+                      Electric Violet
                     </span>
                   </div>
                   <p className="text-xs text-slate-400 font-mono mt-0.5">/portfolio/sarahdev</p>
@@ -198,7 +198,7 @@ export default function HomePage() {
                 </div>
                 <Link
                   href="/portfolio/sarahdev"
-                  className="inline-flex items-center gap-1 text-xs font-medium text-emerald-400 hover:text-emerald-300"
+                  className="inline-flex items-center gap-1 text-xs font-medium text-purple-400 hover:text-purple-300"
                 >
                   <span>View Profile</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -210,7 +210,7 @@ export default function HomePage() {
       </section>
 
       {/* CORE ARCHITECTURE & SYSTEM CAPABILITIES */}
-      <section id="features" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="features" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-16">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-blue-400 mb-1.5">
             Architecture Breakdown
@@ -293,7 +293,7 @@ export default function HomePage() {
       </section>
 
       {/* INTERACTIVE REST API EXPLORER */}
-      <section id="api-docs" className="py-16 bg-[#070910] border-t border-slate-800/80">
+      <section id="api-docs" className="py-16 bg-[#070910] border-t border-slate-800/80 scroll-mt-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mb-8">
             <div className="text-[11px] font-semibold uppercase tracking-wider text-blue-400 mb-1">
